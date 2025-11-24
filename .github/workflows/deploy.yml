@@ -3,13 +3,13 @@ name: VitePress Deploy
 on:
   push:
     branches: [main]
-  workflow_dispatch: # 支持手动触发
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 赋予写入权限
+      contents: write
     
     steps:
       - name: Checkout code
@@ -21,23 +21,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: 'npm'  # 改为npm（如果用npm），或先安装pnpm
+
+      # 新增：安装pnpm（如果你的项目用pnpm）
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: |
-          npm install -g pnpm
-          pnpm install
+        run: pnpm install  # 如果用npm，改为npm install
 
       - name: Build VitePress
-        run: pnpm run build
+        run: pnpm run build  # 如果用npm，改为npm run build
 
       - name: Create .nojekyll file
-        run: touch docs/.vitepress/dist/.nojekyll # 在构建产物中创建.nojekyll
+        run: touch docs/.vitepress/dist/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: docs/.vitepress/dist # 构建产物目录
-          branch: gh-pages # 部署到gh-pages分支
-          clean: true # 清理旧文件
-          single-commit: true # 单个提交
+          folder: docs/.vitepress/dist
+          branch: gh-pages
+          clean: true
+          single-commit: true
