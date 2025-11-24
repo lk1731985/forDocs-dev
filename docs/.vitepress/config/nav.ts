@@ -14,26 +14,6 @@ export const nav: DefaultTheme.NavItem[] = [
     ],
   },
   {
-    text: "资源导航",
-    link: "/resourceNavigation/index.md",
-  },
-  {
-    text: "记录",
-    link: "/deploymentRecord/vitepress.md",
-  },
-  {
-    text: "代码片段",
-    link: "/codeSnippet/CSS/ellipsis.md",
-    // items: [
-    //   { text: "CSS", link: "/codeSnippet/CSS/ellipsis.md" },
-    //   { text: "Javascript", link: "/codeSnippet/Javascript/await-to-js.md" },
-    // ],
-  },
-  {
-    text: "Vitest",
-    link: "/vitest/study01.md",
-  },
-  {
     text: "VitePress",
     link: "/vitepressCn/",
   },

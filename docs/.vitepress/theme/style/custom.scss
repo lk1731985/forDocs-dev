@@ -96,7 +96,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background: #3e455f;
+  background: #fafafb;
 
   .code {
     padding-top: 100px;
@@ -118,11 +118,11 @@
 }
 
 .medium-zoom-overlay {
-  z-index: 20;
+  z-index: 30;
 }
 
 .medium-zoom-image {
-  z-index: 21;
+  z-index: 9999 !important;/* 给的值是21，但是实测盖不住，直接999 */
 }
 
 // 样式覆盖修改

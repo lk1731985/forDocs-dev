@@ -1,47 +1,32 @@
-import { useRoute } from "vitepress";
-import type { Theme } from 'vitepress'
 
-import { nextTick, onMounted, watch } from "vue";
+// import type { Theme } from 'vitepress'
 import DefaultTheme from "vitepress/theme";
-import HomePage from "./components/HomePage.vue";
-import Hyperlinks from "./components/Hyperlinks.vue";
-import mediumZoom from "medium-zoom";
 import "./style/custom.scss";
 
-const theme: Theme = {
-  ...DefaultTheme,
-  enhanceApp({ app }) {
-    app.component("HomePage", HomePage);
-    app.component("Hyperlinks", Hyperlinks);
-  },
+// const theme: Theme = {
+//   ...DefaultTheme,
+// };
+// export default theme;
+
+
+// .vitepress/theme/index.ts
+// import DefaultTheme from 'vitepress/theme'
+
+import mediumZoom from 'medium-zoom';
+import { onMounted, watch, nextTick } from 'vue';
+import { useRoute } from 'vitepress';
+
+
+export default {
+  extends: DefaultTheme,
+
   setup() {
     const route = useRoute();
     const initZoom = () => {
-      mediumZoom(".main img", { background: "var(--vp-c-bg)" });
+      // mediumZoom('[data-zoomable]', { background: 'var(--vp-c-bg)' }); // 默认
+      mediumZoom('.main img', { background: 'var(--vp-c-bg)' }); // 不显式添加{data-zoomable}的情况下为所有图像启用此功能
     };
     onMounted(() => {
-      let html = document.documentElement
-      const toggleTheme = () => {
-
-        if (html.classList.contains('dark')) {
-          html.classList.remove('light');
-        } else { 
-          html.classList.add('light');
-        }
-      
-      }
-      toggleTheme()
-      const observer = new MutationObserver(() => {
-        toggleTheme()
-        observer.takeRecords()
-      })
-
-      observer.observe(html, {
-        attributes: true,
-        childList: false,
-        subtree: false,
-      })
-
       initZoom();
     });
     watch(
@@ -49,5 +34,5 @@ const theme: Theme = {
       () => nextTick(() => initZoom())
     );
   },
-};
-export default theme;
+
+}

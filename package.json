@@ -15,12 +15,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "medium-zoom": "^1.1.0",
+    "anywhere": "^1.7.0",
     "sass": "^1.94.2"
   },
   "devDependencies": {
     "@iconify-json/fa6-solid": "^1.2.4",
     "@types/node": "^24.0.0",
+    "medium-zoom": "^1.1.0",
     "unocss": "^66.0.0",
     "unplugin-icons": "^22.0.0",
     "unplugin-vue-components": "^30.0.0",
