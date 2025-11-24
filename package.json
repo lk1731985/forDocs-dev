@@ -1,0 +1,29 @@
+{
+  "name": "vitepress",
+  "version": "1.0.0",
+  "description": "Vue-powered Static Site Generator",
+  "main": "index.js",
+  "author": "DEV",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs --port 8081",
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "register:components": "vitepress-rc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "medium-zoom": "^1.1.0",
+    "sass": "^1.94.2"
+  },
+  "devDependencies": {
+    "@iconify-json/fa6-solid": "^1.2.4",
+    "@types/node": "^24.0.0",
+    "unocss": "^66.0.0",
+    "unplugin-icons": "^22.0.0",
+    "unplugin-vue-components": "^30.0.0",
+    "vitepress": "^1.6.4"
+  }
+}
