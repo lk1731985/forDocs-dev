@@ -1,26 +1,43 @@
-name: Deploy
+name: VitePress Deploy
 
 on:
   push:
-    branches:
-      - dev
+    branches: [main]
+  workflow_dispatch: # 支持手动触发
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 赋予写入权限
+    
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          node-version: 16
-          cache: yarn
-      - run: yarn install
+          fetch-depth: 0
 
-      - name: Build
-        run: yarn docs:build
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/.vitepress/dist
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: |
+          npm install -g pnpm
+          pnpm install
+
+      - name: Build VitePress
+        run: pnpm run build
+
+      - name: Create .nojekyll file
+        run: touch docs/.vitepress/dist/.nojekyll # 在构建产物中创建.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs/.vitepress/dist # 构建产物目录
+          branch: gh-pages # 部署到gh-pages分支
+          clean: true # 清理旧文件
+          single-commit: true # 单个提交
