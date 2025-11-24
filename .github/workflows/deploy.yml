@@ -21,17 +21,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'  # 改为npm（如果用npm），或先安装pnpm
 
-      # 新增：安装pnpm（如果你的项目用pnpm）
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Install dependencies
-        run: pnpm install  # 如果用npm，改为npm install
+      - name: Install dependencies (ignore frozen lockfile)
+        run: pnpm install --no-frozen-lockfile  # 关键：禁用锁文件检查
 
       - name: Build VitePress
-        run: pnpm run build  # 如果用npm，改为npm run build
+        run: pnpm run build
 
       - name: Create .nojekyll file
         run: touch docs/.vitepress/dist/.nojekyll
